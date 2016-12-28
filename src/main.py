@@ -66,7 +66,6 @@ def map(array, iteratee):
     >>> [3,6,9]
     >>> list(_.map([[1, 2], [3, 4]], _.first))
     >>> [1,3]
-        
     """
     if iteratee_needs_arguments(iteratee, 1):
         for index, item in enumerate(array):
@@ -77,6 +76,24 @@ def map(array, iteratee):
 
 
 def reduce(array, iteratee, init=None):
+    """
+    Also known as inject, foldl or fold-left, reduce boils down a list of values 
+    into a single value. init is the initial state of the reduction, and each 
+    successive step of it should be returned by iteratee. The iteratee is passed 
+    three arguments: the current_reduced_state, then the value and index (or key) of the iteration.
+
+    If no init is passed to the initial invocation of reduce, the iteratee is not invoked on the first element of the list. The first element is instead passed as the memo in the invocation of the iteratee on the next element in the list. 
+
+    params: array, iteratee, init
+    array ->
+    iteratee ->
+    init ->
+
+    Examples
+    >>> total = _.reduce([1, 2, 3], lambda memo, val: memo + val, 0);
+    >>> twisted_total = _.reduce([1, 2, 3], lambda memo, val, index: memo + num*index, 0);
+    """
+
     return functools.reduce(iteratee, array, init)
 
 
