@@ -9,5 +9,9 @@ Underscore library has been very beneficial for working with collections in java
 
 "Underscore.js is the single most depended on module on npm." Python needs its own version of expressive list manipulation library.
 
+### Tutorial
 
+import pyunderscore as _
+
+    _.each(lambda val, key, lst: print(key, val, context), [1,10,100], context='constant')
 

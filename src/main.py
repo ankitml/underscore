@@ -2,23 +2,24 @@ import itertools
 import functools
 from types import GeneratorType
 
+iteratee_needs_arguments = lambda func, n: func.__code__.co_argcount == n
 
 
 def each(array, iteratee):
     """
     Iterates over a list, yielding each element in turn to an iteratee function. 
-    Each invocation of iteratee is called with three arguments: (element, index, list). 
+    Each invocation of iteratee is called with two arguments: (element, index). 
 
     params: array, function/lambda
     array: the list whose elements will will be passed on the function one by one. This can be a generator as well yielding elements one by one. 
-    function -> a function or lambda that takes three inputs, element of the list, index of element, array
+    function -> a function or lambda that takes two inputs, element of the list, index of element. If it takes only one input then index will not be sent. 
 
     Returns a generator of all the elements, hence can be chained.
 
     Example: 
     >>> array = [1,10,100]
-    >>> iteratee1 = lambda val, key, arr: print(val)
-    >>> iteratee2 = lambda val, key, arr: print(key)
+    >>> iteratee1 = lambda val : print(val)
+    >>> iteratee2 = lambda val, index: print(index)
     >>> lazy_each_object = _.each(_.each(array, iteratee1), iteratee2)
     This lazy object is a generator and is not executed yet. This can be done wither by casting generator into a list, which returns the original array or iterating over it.
     >>> list(lazy_each_object)
@@ -38,17 +39,41 @@ def each(array, iteratee):
     >>> 2
     """
     # list, sets, tuples, generators
-    for key,value in enumerate(array):
-        iteratee(value,key,array)
-        yield value
+    if iteratee_needs_arguments(iteratee, 1):
+        for key,value in enumerate(array):
+            iteratee(value)
+            yield value
+    if iteratee_needs_arguments(iteratee, 2):
+        for key,value in enumerate(array):
+            iteratee(value,key)
+            yield value
 
 
 def map(array, iteratee):
     """
-    Produces a new stream of values (generator) by mapping each value in array (list, set, tuple, generator) through a transformation function (iteratee). The iteratee is passed three arguments: the value, then the index (or key) of the iteration, and finally a reference to the entire list.
+    Produces a new stream of values (generator) by mapping each value in array 
+    (list, set, tuple, generator) through a transformation function (iteratee). 
+    The iteratee is passed two arguments: the value, then the index (or key) of the iteration. If the iteratee can accept only one argument then only one will be sent
+
+    params: array, iteratee
+        array -> a list, tuple, iterator, generator, dictionary
+        iteratee -> a function or a lambda
+
+    Examples:
+    >>> list(_.map([1,2,3], lambda x: x*3))
+    >>> [3,6,9]
+    >>> list(_.map({one: 1, two: 2, three: 3}, lambda key, val: val*3))
+    >>> [3,6,9]
+    >>> list(_.map([[1, 2], [3, 4]], _.first))
+    >>> [1,3]
+        
     """
-    for index, item in enumerate(array):
-        yield iteratee(item, index, array)
+    if iteratee_needs_arguments(iteratee, 1):
+        for index, item in enumerate(array):
+            yield iteratee(item)
+    if iteratee_needs_arguments(iteratee, 2):
+        for index, item in enumerate(array):
+            yield iteratee(item, index)
 
 
 def reduce(array, iteratee, init=None):
