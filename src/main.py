@@ -85,11 +85,11 @@ def reduce(array, iteratee, init=None):
     If no init is passed to the initial invocation of reduce, the iteratee is not invoked on the first element of the list. The first element is instead passed as the memo in the invocation of the iteratee on the next element in the list. 
 
     params: array, iteratee, init
-    array ->
-    iteratee ->
-    init ->
+        array -> a list, tuple, iterator, generator, dictionary
+        iteratee -> a function or a lambda
+        init -> Inital value of the reduced state
 
-    Examples
+    Examples:
     >>> total = _.reduce([1, 2, 3], lambda memo, val: memo + val, 0);
     >>> twisted_total = _.reduce([1, 2, 3], lambda memo, val, index: memo + num*index, 0);
     """
@@ -98,6 +98,9 @@ def reduce(array, iteratee, init=None):
 
 
 def reduce_right(array, iteratee, init=None):
+    """
+    Not implemented. Reduce right is also known as fold right. THere is no way this can be implemented with generators and hence skipped.
+    """
     raise NotImplementedError("Reduce right is not compatible with generators")
 
 
