@@ -125,7 +125,7 @@ def find(iterable, conditional):
 
     TODO: What happens if nothing is matched, generator would raise an exception on next
     """
-    for element in collection:
+    for element in iterable:
         if conditional(element):
             yield element
             break
@@ -204,7 +204,7 @@ def reject(iterable, conditional=None):
     >>> list(odds)
     >>> [1,3,5]
     """
-    return reject = itertools.filterfalse(conditional, iterable)
+    return itertools.filterfalse(conditional, iterable)
 
 
 def every(iterable, conditional=None):
