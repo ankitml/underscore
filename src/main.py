@@ -6,6 +6,11 @@ from types import GeneratorType
 _function_needs_arguments = lambda func, n: func.__code__.co_argcount == n
 
 
+class IllegalArgumentError(ValueError):
+    pass
+
+
+
 def each(array, iteratee):
     """
     Iterates over a list, yielding each element in turn to an iteratee function. 
@@ -385,9 +390,9 @@ def group_by(iterable, iteratee):
     return itertools.groupby(collection, function)
 
 
-def index_by(array, key=None, key_func=None):
+def index_by(iterable, key=None, key_func=None):
     """
-    Converts a list or iterable into a dictionary by using either key or key_func. If nothing is provided, uses sequential numbers starting from 0 as indexses.
+    Converts a list or iterable into a dictionary by using either key or key_func. 
 
     params: array, key [optional], key_func [optional]
         array-> list like iterable
@@ -396,14 +401,23 @@ def index_by(array, key=None, key_func=None):
 
     Examples:
     >>> stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
-    >>> _.indexBy(stooges, 'age');
+    >>> _.index_by(stooges, key='age');
     >>> {
     >>>     "40": {"name": 'moe', "age": 40},
     >>>     "50": {"name": 'larry', "age": 50},
     >>>     "60": {"name": 'curly', "age": 60}
     >>> }
     """
-    pass
+    if key:
+        key_maker = lambda item: item[key]
+    elif key_func:
+            key_maker = key_func
+    else:
+        raise IllegalArgumentError("Either key or key_func must be passed")
+
+    return {key_maker(item): item for item in iterable}
+
+
 
 
 def count_by(iterable, iteratee):
