@@ -385,3 +385,25 @@ def group_by(iterable, iteratee):
     return itertools.groupby(collection, function)
 
 
+def index_by(array, key=None, key_func=None):
+    """
+    Converts a list or iterable into a dictionary by using either key or key_func. If nothing is provided, uses sequential numbers starting from 0 as indexses.
+
+    params: array, key [optional], key_func [optional]
+        array-> list like iterable
+        key -> assuming array as array of dictionaries, key is a dictionary_key which is present in all of the dictionaries.
+        key_func->  a function or lambda that takes an element of the iterable and returns the key or index for the dictionary output
+
+    Examples:
+    >>> stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+    >>> _.indexBy(stooges, 'age');
+    >>> {
+    >>>     "40": {"name": 'moe', "age": 40},
+    >>>     "50": {"name": 'larry', "age": 50},
+    >>>     "60": {"name": 'curly', "age": 60}
+    >>> }
+    """
+    pass
+
+
+
