@@ -3,6 +3,7 @@ import functools
 from types import GeneratorType
 
 iteratee_needs_arguments = lambda func, n: func.__code__.co_argcount == n
+function_needs_arguments = lambda func, n: func.__code__.co_argcount == n
 
 
 def each(array, iteratee):
@@ -206,9 +207,23 @@ def reject(iterable, conditional=None):
     return reject = itertools.filterfalse(conditional, iterable)
 
 
-def every(iterable, conditional=None) = all
-some = any
-sort_by = sorted
+def every(iterable, conditional=None):
+    """
+     Returns true if all of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a false element is found. 
+
+     params: iterable, conditional
+        iterable -> list, sequenece, set, dictionary, generator etc
+        conditional -> a lambda or function that takes one or two inputs, first is element from iterable, second is index (optional)
+    Examples:
+    >>> _.every([2, 4, 5], lambda x: x % 2 == 0)
+    >>> False
+    """
+    if conditional is None:
+        return all(iterable)
+    if function_needs_arguments(conditional, 1):
+        pass
+    if function_needs_arguments(conditional, 2):
+        pass
 
 def group_by(function, collection):
     """
