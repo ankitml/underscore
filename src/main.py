@@ -262,6 +262,26 @@ def contains(iterable, value, from_index=None):
     pass
 
 
+def invoke(iterable, iteratee_name, arguments=None, keyword_args=None):
+    """
+     Calls the callable named by iteratee_name on each value in the iterable. Any extra arguments passed to invoke will be forwarded on to the method invocation. 
+
+     Difference with _.each, _.map: each takes in the callable object instead of callable objects' name as string. Also _.invoke returns the new iterable from values returned by the callable. In this sense this is much closer to _.map.
+
+     params: iterable, iteratee_name, arguments [optional]
+        iterable -> list, sequenece, set, dictionary, generator etc
+        iteratee_name -> name of the function which is available in the score while executing the code
+        arguments -> optional arguments that will be passed on to the iteratee function
+
+    Examples
+    >>> list(_.invoke([[5, 1, 7], [3, 2, 1]], 'sorted'))
+    >>> [[1, 5, 7], [1, 2, 3]]
+    >>> list(_.invoke([[5, 1, 7], [3, 2, 1]], 'sorted', keyword_args={"reverse":False, "key": lambda x: x if x %2 == 0 else 0}))
+    >>>  [[1, 5, 7] [3, 1, 2]]
+    """
+    pass
+
+
 
 def group_by(function, collection):
     """
