@@ -135,8 +135,8 @@ def filter(iterable, conditional):
      Looks through each value in the list, returning an array of all the values that pass a truth test (conditional). 
 
     params: conditional, iterable
-        conditional -> a lambda or function that takes one or two inputs, first is element from iterable, second is index (optional)
         iterable -> list, sequenece, set, dictionary, generator etc
+        conditional -> a lambda or function that takes one or two inputs, first is element from iterable, second is index (optional)
 
     Examples:
 
@@ -189,8 +189,24 @@ def find_where(iterable, properties):
     """
     yield next(where(iterable, properties))
 
-reject = itertools.filterfalse
-every = all
+
+def reject(iterable, conditional=None):
+    """
+     Returns the values in list without the elements that the truth test (predicate) passes. The opposite of filter. 
+
+     params: iterable, conditional
+        iterable -> list, sequenece, set, dictionary, generator etc
+        conditional -> a lambda or function that takes one or two inputs, first is element from iterable, second is index (optional)
+
+    Examples:
+    >>> odds = _.reject([1, 2, 3, 4, 5, 6], lambda x: x % 2 == 0)
+    >>> list(odds)
+    >>> [1,3,5]
+    """
+    return reject = itertools.filterfalse(conditional, iterable)
+
+
+def every(iterable, conditional=None) = all
 some = any
 sort_by = sorted
 
