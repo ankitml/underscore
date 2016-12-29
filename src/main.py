@@ -245,6 +245,24 @@ def some(iterable, conditional=None):
         pass
 
 
+def contains(iterable, value, from_index=None):
+    """
+    Returns true if the value is present in the iterable. Use from_index to start your search at a given index.
+
+    Params: iterable, value
+        iterable -> list, sequenece, set, dictionary, generator etc
+        value -> Any element that is to be searched in the iterable
+
+    IMP: This method is not lazy
+
+    Examples:
+    >>> _.contains([1, 2, 3], 3);
+    >>> True
+    """
+    pass
+
+
+
 def group_by(function, collection):
     """
      Splits a collection into sets, grouped by the result of running each value through iteratee. 
