@@ -104,14 +104,14 @@ def reduce_right(array, iteratee, init=None):
     raise NotImplementedError("Reduce right is not compatible with generators")
 
 
-def find(conditional, iterable):
+def find(iterable, conditional):
     """
     Looks through each value in the list, returning the first one that passes a truth test 
     The function yields as soon as it finds an acceptable element, and doesn't traverse the entire iterable
 
-    params: conditional, iterable
-        conditional -> a lambda or function that takes one or two inputs, first is element from iterable, second is index (optional)
+    params: iterable, conditional
         iterable -> list, sequenece, set, dictionary, generator etc
+        conditional -> a lambda or function that takes one or two inputs, first is element from iterable, second is index (optional)
 
     Examples:
 
@@ -121,6 +121,8 @@ def find(conditional, iterable):
     Since this returns a generator with a single value "next" can also be used to extract that value
     >>> next(_.find([1, 2, 3, 4, 5, 6], lambda x: x % 2 == 0))
     >>> 2
+
+    TODO: What happens if nothing is matched, generator would raise an exception on next
     """
     for element in collection:
         if conditional(element):
@@ -128,19 +130,34 @@ def find(conditional, iterable):
             break
 
 
-def filter(array, conditional):
+def filter(iterable, conditional):
     """
      Looks through each value in the list, returning an array of all the values that pass a truth test (conditional). 
+
+    params: conditional, iterable
+        conditional -> a lambda or function that takes one or two inputs, first is element from iterable, second is index (optional)
+        iterable -> list, sequenece, set, dictionary, generator etc
+
+    Examples:
+
+    >>> list(_.find([1, 2, 3, 4, 5, 6], lambda x: x % 2 == 0))
+    >>> [2, 4, 6]
+    
     """
     return filter(conditional, array)
 
 
-def where(array, properties):
+def where(iterable, properties):
     """
      Looks through each value in the list, returning an array of all the values that contain all of the key-value pairs listed in properties. 
-     params: array, properties
-     array-> a list/generator of dictionaries
-     properties-> key value pairs which need to be in a dictionary.
+
+     params: iterable, properties
+         iterable-> a list/generator of dictionaries
+         properties-> key value pairs which need to be in a dictionary.
+
+     Examples:
+    >>> list(_.where(list_of_plays, {author: "Shakespeare", year: 1611}))
+
     """
     items_to_be_checked = properties.items()
     for dictionary in array:
@@ -150,11 +167,27 @@ def where(array, properties):
             yield dictionary
 
 
-def find_where(array, properties):
+def find_where(iterable, properties):
     """
-     Looks through the list and returns the first value that matches all of the key-value pairs listed in properties. j
+     Looks through the list and returns the first value that matches all of the key-value pairs listed in properties. 
+    TODO what happens in case of no match?
+    
+    params: iterable, properties
+         iterable-> a list/generator of dictionaries
+         properties-> key value pairs which need to be in a dictionary.
+
+    Examples:
+    >>> list(_.findWhere(public_service_pulitzers, {"newsroom": "The New York Times"}))
+    >>> [{"year": 1918, "newsroom": "The New York Times",
+          "reason": "For its public service in publishing in full so many official reports, documents and speeches by European statesmen relating to the progress and conduct of the war."}]
+
+    Alternatively, next function can be used to get the only value in the generator returned
+    >>> next(_.findWhere(public_service_pulitzers, {"newsroom": "The New York Times"}))
+    >>> {"year": 1918, 
+    >>>  "newsroom": "The New York Times",
+    >>>  "reason": "For its public service in publishing in full so many official reports, documents and speeches by European statesmen relating to the progress and conduct of the war."}
     """
-    pass
+    yield next(where(iterable, properties))
 
 reject = itertools.filterfalse
 every = all
