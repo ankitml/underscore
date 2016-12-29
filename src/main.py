@@ -2,8 +2,8 @@ import itertools
 import functools
 from types import GeneratorType
 
-iteratee_needs_arguments = lambda func, n: func.__code__.co_argcount == n
-function_needs_arguments = lambda func, n: func.__code__.co_argcount == n
+
+_function_needs_arguments = lambda func, n: func.__code__.co_argcount == n
 
 
 def each(array, iteratee):
@@ -40,11 +40,11 @@ def each(array, iteratee):
     >>> 2
     """
     # list, sets, tuples, generators
-    if iteratee_needs_arguments(iteratee, 1):
+    if _function_needs_arguments(iteratee, 1):
         for key,value in enumerate(array):
             iteratee(value)
             yield value
-    if iteratee_needs_arguments(iteratee, 2):
+    if _function_needs_arguments(iteratee, 2):
         for key,value in enumerate(array):
             iteratee(value,key)
             yield value
@@ -68,10 +68,10 @@ def map(array, iteratee):
     >>> list(_.map([[1, 2], [3, 4]], _.first))
     >>> [1,3]
     """
-    if iteratee_needs_arguments(iteratee, 1):
+    if _function_needs_arguments(iteratee, 1):
         for index, item in enumerate(array):
             yield iteratee(item)
-    if iteratee_needs_arguments(iteratee, 2):
+    if _function_needs_arguments(iteratee, 2):
         for index, item in enumerate(array):
             yield iteratee(item, index)
 
@@ -220,9 +220,9 @@ def every(iterable, conditional=None):
     """
     if conditional is None:
         return all(iterable)
-    if function_needs_arguments(conditional, 1):
+    if _function_needs_arguments(conditional, 1):
         pass
-    if function_needs_arguments(conditional, 2):
+    if _function_needs_arguments(conditional, 2):
         pass
 
 
@@ -239,9 +239,9 @@ def some(iterable, conditional=None):
     """
     if conditional is None:
         return all(iterable)
-    if function_needs_arguments(conditional, 1):
+    if _function_needs_arguments(conditional, 1):
         pass
-    if function_needs_arguments(conditional, 2):
+    if _function_needs_arguments(conditional, 2):
         pass
 
 
