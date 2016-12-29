@@ -406,20 +406,25 @@ def index_by(array, key=None, key_func=None):
     pass
 
 
-def count_by(array, iteratee):
+def count_by(iterable, iteratee):
     """
     Think of it like a harry potter sorting hat, tells you final number of students in every group.
     Similar to group_by, instead of returning a list with every grouped_key, returns count of grouped elements only.
 
     params: array, iteratee
-        array-> list, set, generator 
+        iterable-> list, set, generator 
         iteratee-> a function or a lambda for grouping the elements
 
     Examples
     >>> _.count_by([1, 2, 3, 4, 5], lambda x: 'even' if x % 2 == 0 else 'odd')
     >>> {"odd": 3, "even": 2}
     """
-    pass
+    from collections import defaultdict
+    d = defaultdict(lambda: 0)
+    for item in iterable:
+        key = iteratee(item)
+        d[iteratee(item)] += 1
+    return dict(d)
 
 
 def shuffle(iterable):
@@ -449,6 +454,7 @@ def sample(iterable, n_sample):
         n_sample -> number of random samples to be taken from iterable
 
     TODO: implement walker's method. current one is too inefficient
+    http://code.activestate.com/recipes/576564-walkers-alias-method-for-random-objects-with-diffe/
     Examples:
     >>> _.sample([1, 2, 3, 4, 5, 6])
     >>> [4]
@@ -466,7 +472,6 @@ def sample(iterable, n_sample):
         chosen = random.choice(iterable)
         iterable.remove(chosen)
         sampled.append(chosen)
-        
     return sampled
 
 

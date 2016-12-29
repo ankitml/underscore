@@ -99,8 +99,12 @@ class TestIndexBy(unittest.TestCase):
 
 
 class TestCountBy(unittest.TestCase):
-    pass
 
+    def test_simple_list(self):
+        l = range(1,6)
+        is_even_or_odd = lambda x: 'even' if x % 2 == 0 else 'odd'
+        even_odd_counts = _.count_by(l, is_even_or_odd)
+        self.assertDictEqual(even_odd_counts, {'even': 2, 'odd': 3})
 
 class TestShuffle(unittest.TestCase):
     
@@ -119,11 +123,11 @@ class TestSample(unittest.TestCase):
     def test_simple_list(self):
         l = range(1, 7)
         random_sample = _.sample(l, 1)
-        self.assertIsInstance(random_sample, GeneratorType)
+        self.assertIsInstance(random_sample, list)
         for i in random_sample:
             self.assertIn(i, l)
         two_random_samples = _.sample(l, 2)
-        self.assertIsInstance(two_random_samples, GeneratorType)
+        self.assertIsInstance(two_random_samples, list)
         for i in two_random_samples:
             self.assertIn(i, l)
         self.assertEqual(len(two_random_samples), 2)
