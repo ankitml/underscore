@@ -367,10 +367,20 @@ def sort_by(iterable, key=None, key_func=None, reverse=False):
     pass
 
 
-def group_by(function, collection):
+def group_by(iterable, iteratee):
     """
-     Splits a collection into sets, grouped by the result of running each value through iteratee. 
+     Splits an iterable into sets, grouped by the result of running each value through iteratee. 
      If iteratee is a string instead of a function, groups by the property named by iteratee on each of the values. 
+
+     params: iterable, iteratee
+        iterable -> a list, tuple, iterator, generator
+        iteratee -> a function or a lambda, taking single value as input and returning a transformed value on which iterable will be grouped
+
+    Returns a dictionary
+
+     Examples:
+     >>> _.group_by([1.3, 2.1, 2.4], lambda x:math.floor(x))
+     >>> {1: [1.3], 2: [2.1, 2.4]}
     """
     return itertools.groupby(collection, function)
 
