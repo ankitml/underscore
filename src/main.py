@@ -343,6 +343,30 @@ def min(iterable, key=None, key_func=None):
     pass
 
 
+def sort_by(iterable, key=None, key_func=None, reverse=False):
+    """
+     Returns the sorted iterable in ascending order. If a key is provided, it will 
+     be used on each value to generate the criterion by which the value is ranked. If a key_func is provided it will be used as callable for every element to rank the items.
+     Only one of the key options will be accepted, if both are given key_func will be ignored
+     If reverse is provided, ranking is done in descending order
+    
+     params: iterable, key [optional], key_func [optional], reverse [optional]
+        iterable-> an iterable of dictionary like objects
+        key-> dictionary key for customizing comparisions in the elements of the iterable
+        key_func-> a function or lambda, as custom key function that customizes comparison way
+        reverse -> boolean, default is Ascending order, True makes is descending
+
+    Examples:
+    >>> stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+    >>> next(_.sort_by(stooges, key='age'))
+    >>> [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}]
+    >>> next(_.sort_by(stooges, key='age', reverse=True))
+    >>> [{"name": 'curly', "age": 60}, {"name": 'larry', "age": 50}, {"name": 'moe', "age": 40}]
+
+    """
+    pass
+
+
 def group_by(function, collection):
     """
      Splits a collection into sets, grouped by the result of running each value through iteratee. 
