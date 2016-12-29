@@ -104,13 +104,23 @@ def reduce_right(array, iteratee, init=None):
     raise NotImplementedError("Reduce right is not compatible with generators")
 
 
-def find(conditional, collection):
+def find(conditional, iterable):
     """
-    test if first argument is a conditional or not
-
-
     Looks through each value in the list, returning the first one that passes a truth test 
-    (conditional). The function yields as soon as it finds an acceptable element, and doesn't traverse the entire list
+    The function yields as soon as it finds an acceptable element, and doesn't traverse the entire iterable
+
+    params: conditional, iterable
+        conditional -> a lambda or function that takes one or two inputs, first is element from iterable, second is index (optional)
+        iterable -> list, sequenece, set, dictionary, generator etc
+
+    Examples:
+
+    >>> list(_.find([1, 2, 3, 4, 5, 6], lambda x: x % 2 == 0))
+    >>> [2]
+    
+    Since this returns a generator with a single value "next" can also be used to extract that value
+    >>> next(_.find([1, 2, 3, 4, 5, 6], lambda x: x % 2 == 0))
+    >>> 2
     """
     for element in collection:
         if conditional(element):
@@ -157,4 +167,5 @@ def group_by(function, collection):
      If iteratee is a string instead of a function, groups by the property named by iteratee on each of the values. 
     """
     return itertools.groupby(collection, function)
+
 
