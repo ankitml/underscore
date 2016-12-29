@@ -454,7 +454,8 @@ def sample(iterable, n_sample):
 
 def size(iterable):
     """
-    Returns the length of an iterable
+    Returns the length of an iterable. 
+    Caution: If this iterable is generator, this method would eat up the generator
 
     params: iterable
         iterable -> list, sequenece, set, dictionary, generator etc
@@ -464,7 +465,13 @@ def size(iterable):
     >>> _.size(gen)
     >>> 10
     """
-    pass
+    try:
+        return len(iterable)
+    except TypeError:
+        length = 0
+        for i in iterable:
+            length = length + 1
+        return length
 
 
 def partition(iterable, conditional):

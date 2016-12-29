@@ -111,7 +111,10 @@ class TestSample(unittest.TestCase):
 
 
 class TestSize(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        l = range(0,10)
+        self.assertEqual(_.size(l), 10)
 
 
 class TestPartition(unittest.TestCase):
