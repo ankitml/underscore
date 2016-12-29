@@ -34,7 +34,13 @@ class TestFind(unittest.TestCase):
 
 
 class TestFilter(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        l = [1,2,3,4,5,6]
+        is_even = lambda x: x % 2 == 0
+        evens = _.filter(l, is_even)
+        self.assertIsInstance(evens, GeneratorType)
+        self.assertEqual(list(evens), [2,4,6])
 
 
 class TestWhere(unittest.TestCase):
