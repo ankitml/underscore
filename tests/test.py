@@ -1,15 +1,15 @@
 import unittest
-from src import main as u
+from src import main as _
+from types import GeneratorType
 
 
 class TestEach(unittest.TestCase):
 
     def test_list_return(self):
         l = [1,10,100]
-        fn = lambda v,k,l:print(v,k,l)
-        ret = u.each(l, fn)
-        self.assertEqual(list(ret), l)
-    # todo test side effects of the function being called
+        fn = lambda v,k:print(v,k)
+        ret = _.each(l, fn)
+        # todo test side effects of the function being called
 
 
 class TestMap(unittest.TestCase):
@@ -26,10 +26,10 @@ class TestReduceRight(unittest.TestCase):
 
 class TestFind(unittest.TestCase):
 
-    def test_simple(self):
+    def test_simple_list(self):
         l = [1,10,100]
         condition = lambda item: item % 10 == 0
-        first_divisible_by_10 = u.find(condition, l)
+        first_divisible_by_10 = _.find(l, condition)
         self.assertEqual(first_divisible_by_10.__next__(), 10)
 
 
@@ -106,7 +106,15 @@ class TestSize(unittest.TestCase):
 
 
 class TestPartition(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        l = [1,2,3,4,5,6,7,8,9]
+        is_even = lambda x: x % 2 == 0
+        evens, not_evens = _.partition(l, is_even)
+        self.assertIsInstance(evens, GeneratorType)
+        self.assertIsInstance(not_evens, GeneratorType)
+        self.assertEqual(list(evens), [2,4,6,8])
+        self.assertEqual(list(not_evens), [1,3,5,7,9])
 
 
 
