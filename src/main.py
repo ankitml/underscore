@@ -298,6 +298,7 @@ def pluck(iterable, property_name):
     """
     pass
 
+
 def max(iterable, key=None, key_func=None):
     """
      Returns the maximum value in list. If a key is provided, it will 
@@ -317,6 +318,30 @@ def max(iterable, key=None, key_func=None):
     >>> {'curly': 60}
 
     """
+    pass
+
+
+def min(iterable, key=None, key_func=None):
+    """
+     Returns the minimum value in list. If a key is provided, it will 
+     be used on each value to generate the criterion by which the value is ranked. If a key_func is provided it will be used as callable for every element to rank the items.
+     Only one of the key options will be accepted, if both are given key_func will be ignored
+    
+     params: iterable, key [optional], key_func [optional]
+        iterable-> an iterable of dictionary like objects
+        key-> dictionary key for customizing comparisions in the elements of the iterable
+        key_func-> a function or lambda, as custom key function that customizes comparison way
+
+    Examples:
+    >>> stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+    >>> next(_.max(stooges, key='age'))
+    >>> {'moe': 40}
+    >>> next(_.max(stooges, key_func=lambda x: x.get('age')))
+    >>> {'moe': 40}
+
+    """
+    pass
+
 
 def group_by(function, collection):
     """
