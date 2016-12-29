@@ -33,13 +33,12 @@ class TestFind(unittest.TestCase):
         self.assertEqual(first_divisible_by_10.__next__(), 10)
 
 
-class TestFilter(unittest.TestCase):
+class TestSelect(unittest.TestCase):
 
     def test_simple_list(self):
         l = [1,2,3,4,5,6]
         is_even = lambda x: x % 2 == 0
-        evens = _.filter(l, is_even)
-        self.assertIsInstance(evens, GeneratorType)
+        evens = _.select(l, is_even)
         self.assertEqual(list(evens), [2,4,6])
 
 
@@ -117,8 +116,6 @@ class TestPartition(unittest.TestCase):
         l = [1,2,3,4,5,6,7,8,9]
         is_even = lambda x: x % 2 == 0
         evens, not_evens = _.partition(l, is_even)
-        self.assertIsInstance(evens, GeneratorType)
-        self.assertIsInstance(not_evens, GeneratorType)
         self.assertEqual(list(evens), [2,4,6,8])
         self.assertEqual(list(not_evens), [1,3,5,7,9])
 

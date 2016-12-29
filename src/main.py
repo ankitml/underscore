@@ -131,7 +131,7 @@ def find(iterable, conditional):
             break
 
 
-def filter(iterable, conditional):
+def select(iterable, conditional):
     """
      Looks through each value in the list, returning an array of all the values that pass a truth test (conditional). 
 
@@ -145,7 +145,7 @@ def filter(iterable, conditional):
     >>> [2, 4, 6]
     
     """
-    return filter(conditional, array)
+    return filter(conditional, iterable)
 
 
 def where(iterable, properties):
@@ -482,5 +482,6 @@ def partition(iterable, conditional):
     >>> list(odd)
     >>> [1,3,5,7,9]
     """
-    pass
+    return select(iterable, conditional), reject(iterable, conditional)
+    
 
