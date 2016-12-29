@@ -107,7 +107,11 @@ class TestShuffle(unittest.TestCase):
 
 
 class TestSample(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        l = range(1, 7)
+        random_sample = _.sample(l, 1)
+        self.assertIn(random_sample, l)
 
 
 class TestSize(unittest.TestCase):

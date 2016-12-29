@@ -439,8 +439,10 @@ def shuffle(iterable):
 def sample(iterable, n_sample):
     """
      Produce a random sample from the list. Pass a number to return n random elements from the list. Otherwise a single random item will be returned. 
+
+    CAUTION: Does not yet work with generators
     params: iterable, n_sample
-        iterable -> list, sequenece, set, dictionary, generator etc
+        iterable -> list, sequenece, set, dictionary
         n_sample -> number of random samples to be taken from iterable
 
     Examples:
@@ -449,7 +451,16 @@ def sample(iterable, n_sample):
     >>> _.sample([1, 2, 3, 4, 5, 6], 3)
     >>> [1, 6, 2]
     """
-    pass
+    try:
+        length = len(iterable)
+    except TypeError:
+        raise TypeError("sample does not work well with generators")
+    import random
+    return iterable[random.randint(0, length-1)]
+
+
+
+    
 
 
 def size(iterable):
