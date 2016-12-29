@@ -103,7 +103,15 @@ class TestCountBy(unittest.TestCase):
 
 
 class TestShuffle(unittest.TestCase):
-    pass
+    
+    def test_simple_list(self):
+        l = range(1, 7)
+        shuffled = _.shuffle(l)
+        temp = []
+        for item in shuffled:
+            self.assertIn(item, l)
+            self.assertNotIn(item, temp)
+            temp.append(item)
 
 
 class TestSample(unittest.TestCase):
@@ -124,7 +132,7 @@ class TestSize(unittest.TestCase):
 class TestPartition(unittest.TestCase):
 
     def test_simple_list(self):
-        l = [1,2,3,4,5,6,7,8,9]
+        l = range(1, 10)
         is_even = lambda x: x % 2 == 0
         evens, not_evens = _.partition(l, is_even)
         self.assertEqual(list(evens), [2,4,6,8])

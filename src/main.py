@@ -425,15 +425,18 @@ def count_by(array, iteratee):
 def shuffle(iterable):
     """
     Returns a shuffled copy of the list.
+    Caution: DOes not work with unordered collections and generators
 
     params: iterable
-        iterable -> list, sequenece, set, dictionary, generator etc
+        iterable -> list, sequenece, 
+
 
     Examples:
     >>> _.shuffle([1, 2, 3, 4, 5, 6]);
     >>> [4, 1, 6, 3, 5, 2]
     """
-    pass
+    from random import random
+    return sorted(iterable, key=lambda x: random())
 
 
 def sample(iterable, n_sample):
@@ -457,10 +460,6 @@ def sample(iterable, n_sample):
         raise TypeError("sample does not work well with generators")
     import random
     return iterable[random.randint(0, length-1)]
-
-
-
-    
 
 
 def size(iterable):
@@ -501,5 +500,3 @@ def partition(iterable, conditional):
     >>> [1,3,5,7,9]
     """
     return select(iterable, conditional), reject(iterable, conditional)
-    
-
