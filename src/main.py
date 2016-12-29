@@ -282,6 +282,21 @@ def invoke(iterable, iteratee_name, arguments=None, keyword_args=None):
     pass
 
 
+def pluck(iterable, property_name):
+    """
+     A convenient version of what is perhaps the most common use-case for map: extracting a list of property values from a dictionary like iterable. 
+     TODO: Identify non dictionary like iterables and raise Exception
+
+     params: iterable, property_name
+        iterable-> an iterable of dictionary like objects
+        property_name-> name of property which you want to extract from the dictionaries
+
+    Examples:
+    >>> stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+    >>> list(_.pluck(stooges, 'name'))
+    >>> ["moe", "larry", "curly"]
+    """
+    pass
 
 def group_by(function, collection):
     """
