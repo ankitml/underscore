@@ -51,8 +51,12 @@ class TestFindWhere(unittest.TestCase):
 
 
 class TestReject(unittest.TestCase):
-    pass
 
+    def test_simple_list(self):
+        l = [1,2,3,4,5,6]
+        is_even = lambda x: x % 2 == 0
+        not_evens = _.reject(l, is_even)
+        self.assertEqual(list(not_evens), [1,3,5])
 
 class TestEvery(unittest.TestCase):
     pass
