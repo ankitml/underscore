@@ -406,4 +406,81 @@ def index_by(array, key=None, key_func=None):
     pass
 
 
+def count_by(array, iteratee):
+    """
+    Think of it like a harry potter sorting hat, tells you final number of students in every group.
+    Similar to group_by, instead of returning a list with every grouped_key, returns count of grouped elements only.
+
+    params: array, iteratee
+        array-> list, set, generator 
+        iteratee-> a function or a lambda for grouping the elements
+
+    Examples
+    >>> _.count_by([1, 2, 3, 4, 5], lambda x: 'even' if x % 2 == 0 else 'odd')
+    >>> {"odd": 3, "even": 2}
+    """
+    pass
+
+
+def shuffle(iterable):
+    """
+    Returns a shuffled copy of the list.
+
+    params: iterable
+        iterable -> list, sequenece, set, dictionary, generator etc
+
+    Examples:
+    >>> _.shuffle([1, 2, 3, 4, 5, 6]);
+    >>> [4, 1, 6, 3, 5, 2]
+    """
+    pass
+
+
+def sample(iterable, n_sample):
+    """
+     Produce a random sample from the list. Pass a number to return n random elements from the list. Otherwise a single random item will be returned. 
+    params: iterable, n_sample
+        iterable -> list, sequenece, set, dictionary, generator etc
+        n_sample -> number of random samples to be taken from iterable
+
+    Examples:
+    >>> _.sample([1, 2, 3, 4, 5, 6])
+    >>> 4
+    >>> _.sample([1, 2, 3, 4, 5, 6], 3)
+    >>> [1, 6, 2]
+    """
+    pass
+
+
+def size(iterable):
+    """
+    Returns the length of an iterable
+
+    params: iterable
+        iterable -> list, sequenece, set, dictionary, generator etc
+
+    Examples:
+    >>> gen = (i for i in range(0,10))
+    >>> _.size(gen)
+    >>> 10
+    """
+    pass
+
+
+def partition(iterable, conditional):
+    """
+     Splits the iterable into two iterators: one whose elements all satisfy conditional and one whose elements all do not satisfy conditional.
+
+     params: iterators, conditional
+        iterable -> list, sequenece, set, dictionary, generator etc
+        conditional -> a lambda or function that takes one input and returns a boolean
+
+    Examples:
+    >>> even, odd = _.partition([1,2,3,4,5,6,7,8,9], lambda x: x % 2 ==0)
+    >>> list(even)
+    >>> [2,4,6,8]
+    >>> list(odd)
+    >>> [1,3,5,7,9]
+    """
+    pass
 
