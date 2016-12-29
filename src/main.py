@@ -448,9 +448,10 @@ def sample(iterable, n_sample):
         iterable -> list, sequenece, set, dictionary
         n_sample -> number of random samples to be taken from iterable
 
+    TODO: implement walker's method. current one is too inefficient
     Examples:
     >>> _.sample([1, 2, 3, 4, 5, 6])
-    >>> 4
+    >>> [4]
     >>> _.sample([1, 2, 3, 4, 5, 6], 3)
     >>> [1, 6, 2]
     """
@@ -459,7 +460,14 @@ def sample(iterable, n_sample):
     except TypeError:
         raise TypeError("sample does not work well with generators")
     import random
-    return iterable[random.randint(0, length-1)]
+    sampled = []
+    iterable = list(iterable)
+    for i in range(n_sample):
+        chosen = random.choice(iterable)
+        iterable.remove(chosen)
+        sampled.append(chosen)
+        
+    return sampled
 
 
 def size(iterable):
