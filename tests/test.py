@@ -36,8 +36,11 @@ class TestReduce(unittest.TestCase):
 
 
 class TestReduceRight(unittest.TestCase):
-    pass
 
+    def test_exception_raise(self):
+        l = [1, 2, 3]
+        with self.assertRaises(NotImplementedError) as context:
+            _.reduce_right(l, lambda x:x)
 
 class TestFind(unittest.TestCase):
 

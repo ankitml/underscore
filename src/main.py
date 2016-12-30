@@ -79,7 +79,7 @@ def map(iterable, iteratee):
             yield iteratee(item, index)
 
 
-def reduce(array, iteratee, init=None):
+def reduce(iterable, iteratee, init=None):
     """
     Also known as inject, foldl or fold-left, reduce boils down a list of values 
     into a single value. init is the initial state of the reduction, and each 
@@ -88,24 +88,23 @@ def reduce(array, iteratee, init=None):
 
     If no init is passed to the initial invocation of reduce, the iteratee is not invoked on the first element of the list. The first element is instead passed as the memo in the invocation of the iteratee on the next element in the list. 
 
-    params: array, iteratee, init
-        array -> a list, tuple, iterator, generator, dictionary
+    params: iterable, iteratee, init
+        iterable -> a list, tuple, iterator, generator, dictionary
         iteratee -> a function or a lambda
         init -> Inital value of the reduced state
 
     Examples:
     >>> total = _.reduce([1, 2, 3], lambda memo, val: memo + val, 0);
-    >>> twisted_total = _.reduce([1, 2, 3], lambda memo, val, index: memo + num*index, 0);
+    # >>> twisted_total = _.reduce([1, 2, 3], lambda memo, val, index: memo + num*index, 0);
     """
+    return functools.reduce(iteratee, iterable, init)
 
-    return functools.reduce(iteratee, array, init)
 
-
-def reduce_right(array, iteratee, init=None):
+def reduce_right(iterable, iteratee, init=None):
     """
     Not implemented. Reduce right is also known as fold right. THere is no way this can be implemented with generators and hence skipped.
     """
-    raise NotImplementedError("Reduce right is not compatible with generators")
+    raise NotImplementedError("Reduce right is not compatible with generators and hence is not supported")
 
 
 def find(iterable, conditional):
