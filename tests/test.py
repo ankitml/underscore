@@ -76,7 +76,17 @@ class TestWhere(unittest.TestCase):
 
                          
 class TestFindWhere(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        list_of_plays = [{'author': "Shakespeare", "year": 1611, "name": "Cymbeline"},
+                         {'author': "Shakespeare", "year": 1611, "name": "The Tempest"},
+                         {'author': "Shakespeare", "year": 1612, "name": "Othello"},
+                         {'author': "Shakespeare", "year": 1612, "name": "Macbeth"},
+                         {'author': "Marlowe", "year": 1589, "name": "The Jew of Malta"},
+                         {'author': "Marlowe", "year": 1593, "name": "The Massacre at Paris"},
+                         {'author': "Walter Raleigh", "year": 1618, "name": "The Historie of the World"}]
+        self.assertEqual(next(_.find_where(list_of_plays, {"author": "Walter Raleigh"})), {'author': "Walter Raleigh", "year": 1618, "name": "The Historie of the World"})
+        self.assertEqual(len(list(_.find_where(list_of_plays, {"author":"Shakespeare", "year":1611}))), 1)
 
 
 class TestReject(unittest.TestCase):
@@ -86,6 +96,7 @@ class TestReject(unittest.TestCase):
         is_even = lambda x: x % 2 == 0
         not_evens = _.reject(l, is_even)
         self.assertEqual(list(not_evens), [1,3,5])
+
 
 class TestEvery(unittest.TestCase):
     pass
