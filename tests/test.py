@@ -26,7 +26,13 @@ class TestMap(unittest.TestCase):
 
 
 class TestReduce(unittest.TestCase):
-    pass
+    
+    def test_simple_list(self):
+        l = [1, 2, 3]
+        total = _.reduce(l, lambda m, v: m+v, 0)
+        self.assertEqual(total, 6)
+        # twisted_total = _.reduce(l, lambda m, v, i: m + v*i)
+
 
 
 class TestReduceRight(unittest.TestCase):
