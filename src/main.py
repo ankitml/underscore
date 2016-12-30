@@ -10,17 +10,15 @@ class IllegalArgumentError(ValueError):
     pass
 
 
-
-def each(array, iteratee):
+def each(iterable, iteratee):
     """
-    Iterates over a list, yielding each element in turn to an iteratee function. 
-    Each invocation of iteratee is called with two arguments: (element, index). 
+    Iterates over an iterable, yielding each element in turn to an iteratee function. 
 
     params: array, function/lambda
     array: the list whose elements will will be passed on the function one by one. This can be a generator as well yielding elements one by one. 
-    function -> a function or lambda that takes two inputs, element of the list, index of element. If it takes only one input then index will not be sent. 
+    function -> a function or lambda that takes either one or two inputs, element of the list, index of element. If it takes only one input then index will not be sent. 
 
-    Returns a generator of all the elements, hence can be chained.
+    Returns a generator of the input iterable, can be used for chaining purposes.
 
     Example: 
     >>> array = [1,10,100]
@@ -46,7 +44,7 @@ def each(array, iteratee):
     """
     # list, sets, tuples, generators
     if _function_needs_arguments(iteratee, 1):
-        for key,value in enumerate(array):
+        for value in iterable:
             iteratee(value)
             yield value
     if _function_needs_arguments(iteratee, 2):
@@ -55,7 +53,7 @@ def each(array, iteratee):
             yield value
 
 
-def map(array, iteratee):
+def map(iterable, iteratee):
     """
     Produces a new stream of values (generator) by mapping each value in array 
     (list, set, tuple, generator) through a transformation function (iteratee). 
@@ -74,10 +72,10 @@ def map(array, iteratee):
     >>> [1,3]
     """
     if _function_needs_arguments(iteratee, 1):
-        for index, item in enumerate(array):
+        for item in iterable:
             yield iteratee(item)
     if _function_needs_arguments(iteratee, 2):
-        for index, item in enumerate(array):
+        for index, item in enumerate(iterable):
             yield iteratee(item, index)
 
 
@@ -416,8 +414,6 @@ def index_by(iterable, key=None, key_func=None):
         raise IllegalArgumentError("Either key or key_func must be passed")
 
     return {key_maker(item): item for item in iterable}
-
-
 
 
 def count_by(iterable, iteratee):

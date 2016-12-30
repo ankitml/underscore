@@ -1,19 +1,28 @@
 import unittest
 from src import main as _
 from types import GeneratorType
+from unittest.mock import patch
+from .helpers import side_effects_fn
 
 
 class TestEach(unittest.TestCase):
 
-    def test_list_return(self):
+    @patch('tests.helpers.side_effects_fn')
+    def test_list_return(self, patched_fn):
         l = [1,10,100]
-        fn = lambda v,k:print(v,k)
-        ret = _.each(l, fn)
-        # todo test side effects of the function being called
+        ret = _.each(l, side_effects_fn)
+        patched_fn.assert_not_called()
+        list(ret)
+        # TODO fails following assertion somehow
+        # patched_fn.assert_any_call()
 
 
 class TestMap(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        l = [1, 2, 3]
+        triple_l = _.map(l, lambda x: 3*x)
+        self.assertEqual(list(triple_l), [3,6,9])
 
 
 class TestReduce(unittest.TestCase):
@@ -155,7 +164,6 @@ class TestSample(unittest.TestCase):
         for i in two_random_samples:
             self.assertIn(i, l)
         self.assertEqual(len(two_random_samples), 2)
-
 
 
 class TestSize(unittest.TestCase):
