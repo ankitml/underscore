@@ -160,10 +160,11 @@ def where(iterable, properties):
 
      Examples:
     >>> list(_.where(list_of_plays, {author: "Shakespeare", year: 1611}))
+    >>> [{title: "Cymbeline", author: "Shakespeare", year: 1611}, {title: "The Tempest", author: "Shakespeare", year: 1611}]
 
     """
     items_to_be_checked = properties.items()
-    for dictionary in array:
+    for dictionary in iterable:
         if not isinstance(dictionary, dict):
             raise TypeError('"array" should be a collection of dictionaries only')
         if items_to_be_checked <= dictionary.items():

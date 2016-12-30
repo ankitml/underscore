@@ -42,6 +42,7 @@ class TestReduceRight(unittest.TestCase):
         with self.assertRaises(NotImplementedError) as context:
             _.reduce_right(l, lambda x:x)
 
+
 class TestFind(unittest.TestCase):
 
     def test_simple_list(self):
@@ -61,9 +62,19 @@ class TestSelect(unittest.TestCase):
 
 
 class TestWhere(unittest.TestCase):
-    pass
 
+    def test_simple_list(self):
+        list_of_plays = [{'author': "Shakespeare", "year": 1611, "name": "Cymbeline"},
+                         {'author': "Shakespeare", "year": 1611, "name": "The Tempest"},
+                         {'author': "Shakespeare", "year": 1612, "name": "Othello"},
+                         {'author': "Shakespeare", "year": 1612, "name": "Macbeth"},
+                         {'author': "Marlowe", "year": 1589, "name": "The Jew of Malta"},
+                         {'author': "Marlowe", "year": 1593, "name": "The Massacre at Paris"},
+                         {'author': "Walter Raleigh", "year": 1618, "name": "The Historie of the World"}]
+        self.assertEqual(list(_.where(list_of_plays, {"author": "Walter Raleigh"})), [{'author': "Walter Raleigh", "year": 1618, "name": "The Historie of the World"}])
+        self.assertEqual(len(list(_.where(list_of_plays, {"author":"Shakespeare", "year":1611}))), 2)
 
+                         
 class TestFindWhere(unittest.TestCase):
     pass
 
