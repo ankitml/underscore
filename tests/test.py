@@ -129,23 +129,45 @@ class TestInvoke(unittest.TestCase):
 
 
 class TestPluck(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+        self.assertListEqual(list(_.pluck(stooges, 'name')), ["moe", "larry", "curly"])
 
 
 class TestMax(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+        self.assertDictEqual(_.max(stooges, key='age'), {"name":'curly', "age": 60})
+        self.assertDictEqual(_.max(stooges, key_func=lambda x: x.get('age')), {"name":'curly', "age": 60})
 
 
 class TestMin(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+        self.assertDictEqual(_.max(stooges, key='age'), {"name":'curly', "age": 60})
+        self.assertDictEqual(_.max(stooges, key_func=lambda x: x.get('age')), {"name":'curly', "age": 60})
 
 
 class TestSortBy(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+        s = _.sort_by(stooges, key='age')
+        self.assertListEqual(s, [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}])
+        # s2 = _.sort_by(stooges, key='age', reverse=True)
+        # self.assertListEqual(s, [{"name": 'curly', "age": 60}, {"name": 'larry', "age": 50}, {"name": 'moe', "age": 40}])
 
 
 class TestGroupBy(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        import math
+        l = [1.3, 2.1, 2.04]
+        integer_grouped_l = _.group_by(l, lambda x:math.floor(x))
+        self.assertDictEqual(integer_grouped_l, {1: [1.3], 2: [2.1, 2.04]})
 
 
 class TestIndexBy(unittest.TestCase):

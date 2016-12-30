@@ -1,9 +1,13 @@
 import itertools
 import functools
 from types import GeneratorType
+from operator import itemgetter
 
 
 _function_needs_arguments = lambda func, n: func.__code__.co_argcount == n
+_original_map = map
+_original_min = min
+_original_max = max
 
 
 class IllegalArgumentError(ValueError):
@@ -324,7 +328,7 @@ def pluck(iterable, property_name):
     >>> list(_.pluck(stooges, 'name'))
     >>> ["moe", "larry", "curly"]
     """
-    pass
+    return _original_map(itemgetter(property_name), iterable)
 
 
 def max(iterable, key=None, key_func=None):
@@ -341,12 +345,14 @@ def max(iterable, key=None, key_func=None):
     Examples:
     >>> stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
     >>> next(_.max(stooges, key='age'))
-    >>> {'curly': 60}
+    >>> {"name":'curly', "age": 60}
     >>> next(_.max(stooges, key_func=lambda x: x.get('age')))
-    >>> {'curly': 60}
+    >>> {"name":'curly', "age": 60}
 
     """
-    pass
+    key_func = itemgetter(key) if key else key_func
+    max_val_tuple = _original_max(enumerate(iterable), key=lambda x: key_func(x[1]))
+    return max_val_tuple[1] 
 
 
 def min(iterable, key=None, key_func=None):
@@ -368,7 +374,9 @@ def min(iterable, key=None, key_func=None):
     >>> {'moe': 40}
 
     """
-    pass
+    key_func = itemgetter(key) if key else key_func
+    min_val_tuple = _original_min(enumerate(iterable), key=lambda x: key_func(x[1]))
+    return min_val_tuple[1] 
 
 
 def sort_by(iterable, key=None, key_func=None, reverse=False):
@@ -386,13 +394,13 @@ def sort_by(iterable, key=None, key_func=None, reverse=False):
 
     Examples:
     >>> stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
-    >>> next(_.sort_by(stooges, key='age'))
+    >>> _.sort_by(stooges, key='age')
     >>> [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}]
-    >>> next(_.sort_by(stooges, key='age', reverse=True))
+    >>> _.sort_by(stooges, key='age', reverse=True)
     >>> [{"name": 'curly', "age": 60}, {"name": 'larry', "age": 50}, {"name": 'moe', "age": 40}]
-
     """
-    pass
+    key_func = itemgetter(key) if key else key_func
+    return sorted(iterable, key=key_func, reverse=reverse)
 
 
 def group_by(iterable, iteratee):
@@ -406,11 +414,12 @@ def group_by(iterable, iteratee):
 
     Returns a dictionary
 
-     Examples:
-     >>> _.group_by([1.3, 2.1, 2.4], lambda x:math.floor(x))
-     >>> {1: [1.3], 2: [2.1, 2.4]}
+    Examples:
+    >>> _.group_by([1.3, 2.1, 2.4], lambda x:math.floor(x))
+    >>> {1: [1.3], 2: [2.1, 2.4]}
     """
-    return itertools.groupby(collection, function)
+    grouped_iterators = itertools.groupby(iterable, iteratee)
+    return dict((x,list(y)) for x,y in grouped_iterators)
 
 
 def index_by(iterable, key=None, key_func=None):
