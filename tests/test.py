@@ -113,11 +113,19 @@ class TestSome(unittest.TestCase):
         self.assertTrue(_.some(l, lambda x: x % 2 == 0))
 
 class TestContains(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        l = [1, 2, 3, 4, 5]
+        self.assertTrue(_.contains(l, 3))
+        self.assertFalse(_.contains(l, 3, 4))
 
 
 class TestInvoke(unittest.TestCase):
-    pass
+
+    def test_simple_list(self):
+        l = [[5, 1, 7], [3, 2, 1]]
+        new_l = list(_.invoke(l, 'sorted'))
+        self.assertListEqual(new_l, [[1,5,7], [1,2,3]])
 
 
 class TestPluck(unittest.TestCase):

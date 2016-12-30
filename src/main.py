@@ -274,7 +274,12 @@ def contains(iterable, value, from_index=None):
     >>> _.contains([1, 2, 3], 3);
     >>> True
     """
-    pass
+    if from_index:
+        for index, item in enumerate(iterable):
+            if index > from_index and item == value:
+                return True
+        return False
+    return value in iterable
 
 
 def invoke(iterable, iteratee_name, arguments=None, keyword_args=None):
@@ -294,7 +299,15 @@ def invoke(iterable, iteratee_name, arguments=None, keyword_args=None):
     >>> list(_.invoke([[5, 1, 7], [3, 2, 1]], 'sorted', keyword_args={"reverse":False, "key": lambda x: x if x %2 == 0 else 0}))
     >>>  [[1, 5, 7] [3, 1, 2]]
     """
-    pass
+    if arguments is None:
+        arguments = []
+    if keyword_args is None:
+        keyword_args = {}
+    # TODO support functions from other modules and classes as well
+    # eval might be risky here, find alternative
+    func = eval(iteratee_name)
+    for item in iterable:
+        yield func(item, *arguments, **keyword_args)
 
 
 def pluck(iterable, property_name):
