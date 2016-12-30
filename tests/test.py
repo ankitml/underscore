@@ -99,12 +99,18 @@ class TestReject(unittest.TestCase):
 
 
 class TestEvery(unittest.TestCase):
-    pass
+    
+    def test_simple_list(self):
+        l = [1, 4, 5]
+        self.assertEqual(_.every(l, lambda x: x % 2 == 0), False)
+        self.assertEqual(_.every(l, lambda x,i: x % 2 == 0), False)
 
 
 class TestSome(unittest.TestCase):
-    pass
 
+    def test_simple_list(self):
+        l = [2, 4, 5]
+        self.assertTrue(_.some(l, lambda x: x % 2 == 0))
 
 class TestContains(unittest.TestCase):
     pass

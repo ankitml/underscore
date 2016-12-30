@@ -224,9 +224,15 @@ def every(iterable, conditional=None):
     if conditional is None:
         return all(iterable)
     if _function_needs_arguments(conditional, 1):
-        pass
+        for item in iterable:
+            if not conditional(item):
+                return False
+        return True
     if _function_needs_arguments(conditional, 2):
-        pass
+        for key, value in enumerate(iterable):
+            if not conditional(value, key):
+                return False
+        return True
 
 
 def some(iterable, conditional=None):
@@ -243,9 +249,15 @@ def some(iterable, conditional=None):
     if conditional is None:
         return all(iterable)
     if _function_needs_arguments(conditional, 1):
-        pass
+        for value in iterable:
+            if conditional(value):
+                return True
+        return False
     if _function_needs_arguments(conditional, 2):
-        pass
+        for key, value in enumerate(iterable):
+            if conditional(value, key):
+                return True
+        return False
 
 
 def contains(iterable, value, from_index=None):
