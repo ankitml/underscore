@@ -154,11 +154,12 @@ class TestMin(unittest.TestCase):
 class TestSortBy(unittest.TestCase):
 
     def test_simple_list(self):
-        stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}];
+        stooges = [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}]
         s = _.sort_by(stooges, key='age')
         self.assertListEqual(s, [{"name": 'moe', "age": 40}, {"name": 'larry', "age": 50}, {"name": 'curly', "age": 60}])
-        # s2 = _.sort_by(stooges, key='age', reverse=True)
-        # self.assertListEqual(s, [{"name": 'curly', "age": 60}, {"name": 'larry', "age": 50}, {"name": 'moe', "age": 40}])
+        s2 = _.sort_by(stooges, key='age', reverse=True)
+        print(s2)
+        self.assertListEqual(s2, [{"name": 'curly', "age": 60}, {"name": 'larry', "age": 50}, {"name": 'moe', "age": 40}])
 
 
 class TestGroupBy(unittest.TestCase):
