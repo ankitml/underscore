@@ -1,4 +1,8 @@
 def flatten(iterable, shallow=False):
+    """
+    Flattens an iterable. (generator, list etc)
+    returns a flat generator
+    """
     if shallow:
         raise NotImplementedError
 
