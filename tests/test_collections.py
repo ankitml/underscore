@@ -1,5 +1,5 @@
 import unittest
-from src import main as _
+from src import collections as _
 from types import GeneratorType
 from unittest.mock import patch
 from .helpers import side_effects_fn
