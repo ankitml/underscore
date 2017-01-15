@@ -1,5 +1,5 @@
 import unittest
-from src import arrays as _
+from underscore import arrays as _
 
 
 class TestFlatten(unittest.TestCase):
