@@ -4,10 +4,21 @@ from iterrools import islice
 def first(iterable, n=1):
     """
     Returns the first element of an iterable. Passing n will return the first n elements of the iterable.
-    Does not modify the original iterator, copies it into a new generator. So if the iterable passed is
-    a generator it will not be consumed.
+    Caution: If the input iterable is a generator, it Uses up the generaotr partially
     """
     return islice(iterable, 0, n)
+
+
+def last(iterable, n=1):
+    pass
+
+
+def rest(iterable, n=1):
+    """
+    Returns the rest of the elements in an array. Pass an index to return the values of the array from that index onward.
+    """
+    return islice(iterable, n)
+
 
 def flatten(iterable, shallow=False):
     """
@@ -24,4 +35,26 @@ def flatten(iterable, shallow=False):
     except TypeError:
         yield iterable
 
+
+def compact(iterable):
+    """
+    Returns a copy of the array with all falsy values removed. 
+    In JavaScript, false, null, 0, "", undefined and NaN are all falsy.
+    """
+    pass
+
+
+def without(iterable, *values):
+    """
+    Returns a copy of the array with all instances of the values removed.
+
+    """
+    pass
+
+
+def union(*iterables):
+    """
+    Computes the union of the passed-in arrays: the list of unique items
+    """
+    pass
 
