@@ -2,6 +2,7 @@
 
 Underscorejs port for python
 
+[![CircleCI](https://circleci.com/gh/ankitml/underscore/tree/master.svg?style=svg)](https://circleci.com/gh/ankitml/underscore/tree/master)
 
 ## Highlights
 * Supports python 3. 
