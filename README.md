@@ -19,9 +19,9 @@ Underscore library has been very beneficial for working with collections in java
 This package is not yet available on pypy but you can install bleeding edge version by doing
 
 ```
-pip install git+https://github.com/ankitml/underscore.git
+pip install pyunderscore
 ```
-
+https://pypi.org/project/pyunderscore/
 
 ## API
 
